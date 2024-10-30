@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Listing</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <link rel="stylesheet" href="product.css">
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">
+            <span class="logo-red">Little</span><span class="logo-dark">Fashion</span>
+        </div>
+
+        <nav class="nav-links">
+            <a href="http://localhost/DIFFO/diffo.html" class="nav-link">Home</a>
+            <li><a href="http://localhost/DIFFO/contact.html">contact</a></li>
+            <a href="http://localhost/DIFFO/all.html" class="nav-link">Shopping</a>
+            <a href="#" class="nav-link">About Us</a>
+        </nav>
+
+        <div class="nav-icons">
+            <!-- Sign-in Icon with Dropdown -->
+            <div class="dropdown">
+                <a href="#" class="icon-user">👤</a>
+                <div class="dropdown-content">
+                    <a href="singin.html" id="signup-link">Sign In</a>
+                    <a href="singin.html" id="signin-link">Login</a>
+                    <a href="#">My Orders</a>
+                    <button id="logout" style="display: none;">Logout</button>
+                </div>
+            </div>
+            <a href="http://localhost/DIFFO/cart.html" class="icon-cart">🛒</a>
+        </div>
+    </header>
+
+    <div class="product-page">
+        <h1 id="name">Mercedes Jackets</h1>
+        <div class="product-info">
+            <!-- Thumbnail Sidebar -->
+            <div class="thumbnail-sidebar">
+                <img src="m.JPG" alt="Side view" class="thumbnail" onclick="changeMainImage(this)">
+                <img src="mb.jpg" alt="Back view" class="thumbnail" onclick="changeMainImage(this)">
+            </div>
+
+            <!-- Main Product Image and Details -->
+            <div class="product-main">
+                <img id="main-image" src="mb.jpg" alt="Main view" class="main-image">
+                <div class="product-details">
+                    <p class="price" id="price">$100</p>
+                    <div class="color-options">
+                        <p>Color:</p>
+                        <button class="color-btn" style="background-color: black;" onclick="selectColor('black')"></button>
+                        <button class="color-btn" style="background-color: #A0522D;" onclick="selectColor('brown')"></button>
+                    </div>
+                    <div class="size-options">
+                        <p>Size:</p>
+                        <select id="size-select"> <!-- Added id="size-select" -->
+                            <option value="xs">XS</option>
+                            <option value="s">S</option>
+                            <option value="m">M</option>
+                            <option value="l">L</option>
+                            <option value="xl">XL</option>
+                            <option value="xxl">XXL</option>
+                        </select>
+                    </div>
+                    <div class="fit-options">
+                        <p>Fit:</p>
+                        <select id="fit-select"> <!-- Added id="fit-select" -->
+                            <option value="regular">Regular</option>
+                            <option value="tall">Tall</option>
+                            <option value="petite">Petite</option>
+                        </select>
+                    </div>
+                    <div class="quantity">
+                        <p>Quantity:</p>
+                        <input type="number" id="quantity" value="1" min="1"> <!-- Added id="quantity" -->
+                    </div>
+                    <button class="add-to-cart" onclick="addToCart()">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>>
+
+    <script>
+        // JavaScript function to change the main image
+        function changeMainImage(thumbnail) {
+            // Get the main image element by its ID
+            const mainImage = document.getElementById("main-image");
+            // Update the source of the main image to the source of the clicked thumbnail
+            mainImage.src = thumbnail.src;
+        }
+    </script>
+    <script>
+        // JavaScript function to change the main image
+        function changeMainImage(thumbnail) {
+            // Get the main image element by its ID
+            const mainImage = document.getElementById("main-image");
+            // Update the source of the main image to the source of the clicked thumbnail
+            mainImage.src = thumbnail.src;
+        }
+    </script>
+      <script>
+        let selectedColor = 'black';
+
+        function changeMainImage(thumbnail) {
+            document.getElementById("main-image").src = thumbnail.src;
+        }
+
+        function selectColor(color) {
+            selectedColor = color;
+        }
+
+        function addToCart() {
+            const name = document.getElementById("name").textContent;
+            const price = document.getElementById("price").textContent;
+            const size = document.getElementById("size-select").value;
+            const fit = document.getElementById("fit-select").value;
+            const color = selectedColor;
+            const quantity = parseInt(document.getElementById("quantity").value);
+
+            const cartItem = {
+                name: name,
+                price: price,
+                color: color,
+                size: size,
+                fit: fit,
+                quantity: quantity
+            };
+
+            const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            cartItems.push(cartItem);
+            localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+            Swal.fire({
+    title: 'Added to Cart!',
+    text: `${quantity}x ${name} (${color}, ${size}, ${fit}) added to your cart.`,
+    icon: 'success',
+    confirmButtonText: 'Continue Shopping'
+});
+
+        }
+    </script>
+    <script src="fb.js"></script>
+    <script>
+        // Check login state from localStorage
+        const isLoggedIn = localStorage.getItem('loggedInUserId') !== null;
+        const userEmail = localStorage.getItem('userEmail'); // Assuming you stored user email upon sign-in
+
+        // DOM Elements
+        const signupLink = document.getElementById('signup-link');
+        const loginLink = document.getElementById('signin-link');
+        const logoutButton = document.getElementById('logout');
+
+        // Show/Hide elements based on login state
+        if (isLoggedIn) {
+            signupLink.style.display = 'none';
+            loginLink.style.display = 'none';
+            logoutButton.style.display = 'block';
+
+            // Pre-fill email if the user is logged in
+            document.getElementById('email').value = userEmail; // Autofill email
+        } else {
+            logoutButton.style.display = 'none'; // Ensure logout is hidden if not logged in
+        }
+
+        // Logout functionality
+        logoutButton.addEventListener('click', () => {
+            localStorage.removeItem('loggedInUserId');
+            localStorage.removeItem('userEmail'); // Remove email on logout
+            window.location.reload();
+        });
+    </script>
+</body>
+</html>

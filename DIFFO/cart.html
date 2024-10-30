@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart - Diffo Collection</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=account_circle" />
+    <script type="text/javascript"
+    src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+</script>
+<script type="text/javascript">
+(function(){
+  emailjs.init({
+    publicKey: "JiguPHahVNL1cj6vC",
+  });
+})();
+</script>
+    <link rel="stylesheet" href="all.css">
+    <link rel="stylesheet" href="cart.css"> <!-- Separate CSS for cart -->
+    <style>
+        /* General Body Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+    
+        /* Header Styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    
+        /* Main Styles */
+        main {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    
+        /* Form Styles */
+        .form-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: none; /* Hidden initially */
+        }
+    
+        .form-container h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+    
+        .form-group {
+            margin: 15px 0;
+        }
+    
+        .form-group label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+    
+        .form-group input[type="text"],
+        .form-group input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: border 0.3s;
+        }
+    
+        .form-group input:focus {
+            border-color: #007BFF;
+            outline: none;
+        }
+    
+        .payment-option {
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+        }
+    
+        .payment-option input {
+            margin-right: 10px;
+        }
+    
+        .error {
+            color: red;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+    
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+    
+        button:hover {
+            background-color: #0056b3;
+        }
+    
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 15px;
+            }
+    
+            button {
+                font-size: 14px;
+            }
+        }
+    </style>
+    
+    <body>
+        <div class="container navbar">
+            <h1 class="logo"><img src="DIFFO.png" alt="Diffo Logo" height="60"></h1>
+            <div class="nav-items">
+                <nav>
+                    <ul>
+                        <li><a href="http://localhost/DIFFO/all.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="http://localhost/DIFFO/all.html">Shopping</a></li>
+                    </ul>
+                </nav>
+                <li class="dropdown">
+                    <a href="#" class="sign-in-link">
+                        <span class="material-symbols-outlined">account_circle</span>
+                        <style>
+                            .material-symbols-outlined {
+                                color: white;
+                                font-variation-settings: 'FILL' 0, 'wght' 1400, 'GRAD' 0, 'opsz' 40;
+                            }
+                        </style>
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="singin.html" id="signup-link">Sign In</a>
+                        <a href="singin.html" id="signin-link">Login</a>
+                        <a href="#">My Orders</a>
+                        <button id="logout" style="display: none;">Logout</button>
+                    </div>
+                </li>
+                <a href="http://localhost/DIFFO/cart.html" id="cart-icon" class="cart-icon">
+                    <span class="material-icons">shopping_cart</span>
+                    <span id="cart-count">0</span>
+                    <style>
+                        #cart-count {
+                            color: white;
+                        }
+                        .material-icons {
+                            color: wheat;
+                        }
+                    </style>
+                </a>
+            </div>
+        </div>
+    
+        <header>
+           
+        </header>
+    
+        <main>
+            <h1>Your Cart</h1>
+            <div id="cart-items">
+                <p>No items in your cart.</p>
+            </div>
+            <div id="cart-total">
+                <h2>Total Price: <span id="total-price">0</span> NIS</h2>
+            </div>
+            <button id="checkout-button" onclick="toggleForm()">Proceed to Checkout</button>
+    
+            <div class="form-container" id="payment-form">
+                <h2>Fill Your Information</h2>
+                <form>
+                    <div class="form-group">
+                        <label for="first-name">First Name:</label>
+                        <input type="text" id="first-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="last-name">Last Name:</label>
+                        <input type="text" id="last-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number:</label>
+                        <input type="text" id="phone" maxlength="10" required>
+                        <div id="phone-error" class="error"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Location:</label>
+                        <select id="location" required>
+                            <option value="">Select Location</option>
+                            <option value="israel">Israel</option>
+                            <option value="palestinian">Palestinian Territories</option>
+                        </select>
+                    </div>
+                    
+                    <h3>Select Payment Method</h3>
+                    <div class="payment-option">
+                        <input type="radio" id="paypal" name="payment" value="paypal" required>
+                        <label for="paypal">PayPal</label>
+                    </div>
+                    <div class="payment-option">
+                        <div>
+                            <input type="radio" id="mastercard" name="payment" value="mastercard" required>
+                            <label for="mastercard">MasterCard</label>
+                            <a href="card.html">
+                                <button type="button">Proceed to Payment</button>
+                            </a>
+                        </div>
+                        
+                    <div class="payment-option">
+                        <input type="radio" id="cash-on-delivery" name="payment" value="cash-on-delivery" required>
+                        <label for="cash-on-delivery">Cash on Delivery</label>
+                    </div>
+            
+                    <button type="submit"  onclick="sendmail(); return false;">Confirm Payment</button>
+                </form>
+            </div>
+            
+            <script>
+                function toggleForm() {
+    const form = document.getElementById("payment-form");
+    if (form.style.display === "none" || form.style.display === "") {
+        form.style.display = "block"; // Show the form
+    } else {
+        form.style.display = "none"; // Hide the form
+    }
+}
+
+            
+            </script>
+            
+    
+
+    <script src="fb.js"></script>
+    <script>
+        // Check login state from localStorage
+        const isLoggedIn = localStorage.getItem('loggedInUserId') !== null;
+        const userEmail = localStorage.getItem('userEmail'); // Assuming you stored user email upon sign-in
+
+        // DOM Elements
+        const signupLink = document.getElementById('signup-link');
+        const loginLink = document.getElementById('signin-link');
+        const logoutButton = document.getElementById('logout');
+
+        // Show/Hide elements based on login state
+        if (isLoggedIn) {
+            signupLink.style.display = 'none';
+            loginLink.style.display = 'none';
+            logoutButton.style.display = 'block';
+
+            // Pre-fill email if the user is logged in
+            document.getElementById('email').value = userEmail; // Autofill email
+        } else {
+            logoutButton.style.display = 'none'; // Ensure logout is hidden if not logged in
+        }
+
+        // Logout functionality
+        logoutButton.addEventListener('click', () => {
+            localStorage.removeItem('loggedInUserId');
+            localStorage.removeItem('userEmail'); // Remove email on logout
+            window.location.reload();
+        });
+
+        // Cart Logic
+        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+        const cartItemsContainer = document.getElementById('cart-items');
+        const totalPriceElement = document.getElementById('total-price');
+        let total = 0;
+
+        if (cartItems.length === 0) {
+            cartItemsContainer.innerHTML = '<p>No items in your cart.</p>';
+        } else {
+            cartItemsContainer.innerHTML = '';
+            cartItems.forEach((item, index) => {
+                const itemPrice = parseFloat(item.price.replace(/[^0-9.]/g, '')) * item.quantity;
+                total += itemPrice;
+
+                const productElement = document.createElement('div');
+                productElement.className = 'cart-item';
+                productElement.innerHTML = `
+                    <h3>${item.name}</h3>
+                    <p>Price per item: ${item.price} NIS</p>
+                    <p>Color: ${item.color}</p>
+                    <p>Size: ${item.size}</p>
+                    <p>Fit: ${item.fit}</p>
+                    <label>Quantity: <input type="number" class="item-quantity" data-index="${index}" value="${item.quantity}" min="1"></label>
+                    <button class="remove-from-cart" data-index="${index}">Remove</button>
+                `;
+                cartItemsContainer.appendChild(productElement);
+            });
+            totalPriceElement.textContent = total.toFixed(2);
+        }
+
+        cartItemsContainer.addEventListener('input', (e) => {
+            if (e.target.classList.contains('item-quantity')) {
+                const index = e.target.dataset.index;
+                cartItems[index].quantity = parseInt(e.target.value);
+                localStorage.setItem('cartItems', JSON.stringify(cartItems));
+                location.reload();
+            }
+        });
+
+        cartItemsContainer.addEventListener('click', (e) => {
+            if (e.target.classList.contains('remove-from-cart')) {
+                const index = e.target.dataset.index;
+                cartItems.splice(index, 1);
+                localStorage.setItem('cartItems', JSON.stringify(cartItems));
+                location.reload();
+            }
+        });
+
+        // Modal functionality
+        const paymentModal = document.getElementById("payment-modal");
+        const checkoutButton = document.getElementById('checkout-button');
+        const closeButton = document.getElementsByClassName("close")[0];
+        const confirmPaymentButton = document.getElementById("confirm-payment");
+        const phoneInput = document.getElementById('phone');
+        const phoneError = document.getElementById('phone-error');
+
+        checkoutButton.addEventListener('click', () => {
+            if (!isLoggedIn) {
+                alert('You must be signed in to proceed to checkout.');
+                // Optionally redirect to sign-in page
+                window.location.href = 'singin.html';
+            } else {
+                paymentModal.style.display = "block"; // Show the payment modal
+            }
+        });
+
+        closeButton.addEventListener('click', () => {
+            paymentModal.style.display = "none"; // Close the modal
+        });
+
+        // Confirm payment button functionality
+        confirmPaymentButton.addEventListener('click', () => {
+            const paymentMethod = document.querySelector('input[name="payment"]:checked');
+            const phoneNumber = phoneInput.value;
+
+            // Validate phone number
+            if (phoneNumber.length !== 10) {
+                phoneError.textContent = 'Phone number must be exactly 10 digits.';
+                return;
+            } else {
+                phoneError.textContent = '';
+            }
+
+            if (paymentMethod) {
+                alert('You have selected ' + paymentMethod.value + ' as your payment method.');
+                // Here you can implement the actual payment processing logic if needed
+                paymentModal.style.display = "none"; // Close the modal
+            } else {
+                alert('Please select a payment method.');
+            }
+        });
+
+        // Close the modal when clicking outside of it
+        window.onclick = function(event) {
+            if (event.target == paymentModal) {
+                paymentModal.style.display = "none";
+            }
+        };
+    </script>
+    <script>
+        // Define a function to update the cart count
+function updateCartCount() {
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+    document.getElementById('cart-count').textContent = cartCount;
+}
+
+// Run this function initially to load the cart count when the page opens
+updateCartCount();
+
+
+// Remove item from cart based on unique ID
+cartItemsContainer.addEventListener('click', (e) => {
+    if (e.target.classList.contains('remove-from-cart')) {
+        const productElement = e.target.closest('.cart-item');
+        const itemId = e.target.dataset.id; // Use the unique ID
+
+        // Find the item index using the unique ID
+        cartItems = cartItems.filter(item => item.id !== itemId);
+
+        // Update localStorage and remove the item from DOM
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        productElement.remove(); // Remove the item's section from the DOM
+
+        updateCartCount(); // Update the cart count
+
+        if (cartItems.length === 0) {
+            cartItemsContainer.innerHTML = '<p>No items in your cart.</p>';
+        }
+    }
+});
+
+// Render Cart Items Function
+function renderCartItems() {
+    cartItemsContainer.innerHTML = ''; // Clear the container
+    let total = 0;
+
+    if (cartItems.length === 0) {
+        cartItemsContainer.innerHTML = '<p>No items in your cart.</p>';
+    } else {
+        cartItems.forEach((item) => {
+            const itemPrice = parseFloat(item.price.replace(/[^0-9.]/g, '')) * item.quantity;
+            total += itemPrice;
+
+            const productElement = document.createElement('div');
+            productElement.className = 'cart-item';
+            productElement.innerHTML = `
+                <h3>${item.name}</h3>
+                <p>Price per item: ${item.price} NIS</p>
+                <p>Color: ${item.color}</p>
+                <p>Size: ${item.size}</p>
+                <p>Fit: ${item.fit}</p>
+                <label>Quantity: <input type="number" class="item-quantity" data-id="${item.id}" value="${item.quantity}" min="1"></label>
+                <button class="remove-from-cart" data-id="${item.id}">Remove</button>
+            `;
+            cartItemsContainer.appendChild(productElement);
+        });
+        totalPriceElement.textContent = total.toFixed(2);
+    }
+}
+
+// Call the function to render items when the page loads
+renderCartItems();
+
+    </script>
+    <script>
+  function sendmail() {
+    const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+    const paymentMethod = document.querySelector('input[name="payment"]:checked')?.value || 'Not selected';
+
+    const cartDetails = cartItems.map(item => 
+        `Item: ${item.name}, Price: ${item.price}, Color: ${item.color}, Size: ${item.size}, Fit: ${item.fit}, Quantity: ${item.quantity}`
+    ).join('\n');
+
+    // Prepare parms with variable names that match your template
+    const parms = {
+        name: document.getElementById("first-name").value + " " + document.getElementById("last-name").value,
+        firstname: document.getElementById("first-name").value,
+        lastname: document.getElementById("last-name").value,
+        email: document.getElementById("email").value, // Include email here
+        phone: document.getElementById("phone").value,
+        location: document.getElementById("location").value,
+        cartDetails: cartDetails,
+        paymentMethod: paymentMethod,
+    };
+
+    console.log("Sending email with parameters:", parms); // Debugging line
+
+    emailjs.send("service_4ziknno", "template_ux2elwu", parms)
+        .then(response => {
+            alert("Email sent successfully!");
+            console.log("Email sent successfully:", response);
+        })
+        .catch(error => {
+            alert("Failed to send email: " + error.text);
+            console.error("Error sending email:", error);
+        });
+}
+
+ </script>
+    
+</body>
+</html>

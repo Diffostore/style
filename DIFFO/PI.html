@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #4cae4c;
+        }
+
+        .error-message {
+            color: red;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Add Product</h1>
+        <form id="productForm">
+            <input type="text" id="productName" placeholder="Product Name" required>
+            <input type="number" id="productPrice" placeholder="Price" required>
+            <input type="text" id="stock" placeholder="Stock" required>
+            <button type="submit">Add Product</button>
+            <p class="error-message" id="error-message"></p>
+        </form>
+    </div>
+
+    <script type="module">
+        // Import Firebase modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDyZLhvYJsF3WYDfMCOKwwtSpZwbTtU6_c",
+            authDomain: "diffo-f24df.firebaseapp.com",
+            databaseURL: "https://diffo-f24df-default-rtdb.firebaseio.com",
+            projectId: "diffo-f24df",
+            storageBucket: "diffo-f24df.appspot.com",
+            messagingSenderId: "235527103201",
+            appId: "1:235527103201:web:5e3d48dd98baed22408da0"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Function to check for duplicate product name
+        async function checkDuplicateProduct(name) {
+            const q = query(collection(db, "products"), where("name", "==", name));
+            const querySnapshot = await getDocs(q);
+            return !querySnapshot.empty; // Returns true if duplicate exists
+        }
+
+        // Function to add products
+        async function addProduct(name, price, stock) {
+            const isDuplicate = await checkDuplicateProduct(name);
+            if (isDuplicate) {
+                document.getElementById('error-message').textContent = "Product name already exists. Please choose a different name.";
+                document.getElementById('error-message').style.display = "block";
+                return;
+            }
+
+            try {
+                const docRef = await addDoc(collection(db, "products"), {
+                    name: name,
+                    price: price,
+                    stock: stock
+                });
+                console.log("Product added with ID: ", docRef.id);
+                document.getElementById('productForm').reset(); // Reset the form after submission
+                document.getElementById('error-message').style.display = "none"; // Hide error message
+            } catch (error) {
+                console.error("Error adding product: ", error);
+                document.getElementById('error-message').textContent = "Error adding product. Please try again.";
+                document.getElementById('error-message').style.display = "block";
+            }
+        }
+
+        // Handle form submission
+        document.getElementById('productForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the default form submission
+            const name = document.getElementById('productName').value;
+            const price = parseFloat(document.getElementById('productPrice').value);
+            const stock = parseInt(document.getElementById('stock').value);
+
+            // Call the addProduct function
+            addProduct(name, price, stock);
+        });
+    </script>
+</body>
+</html>

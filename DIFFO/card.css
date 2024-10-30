@@ -1,0 +1,184 @@
+@import url("https://fonts.googleapis.com/css?family=Source+Code+Pro:400,500,600,700|Source+Sans+Pro:400,600,700&display=swap");
+
+body {
+    background: #1C2B3C;
+    font-family: "Source Sans Pro", sans-serif;
+    font-size: 16px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.wrapper {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-form {
+    position: relative;
+    width: 370px;
+    perspective: 1500px;
+}
+
+.card-list {
+    position: relative;
+}
+
+.card-item {
+    position: relative;
+    width: 100%;
+    height: 220px;
+    border-radius: 10px;
+    transition: transform 0.5s;
+    transform-style: preserve-3d;
+}
+
+.card-item.-active {
+    transform: rotateY(180deg);
+}
+
+.card-item__side {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    backface-visibility: hidden;
+}
+
+.card-item__side.-front {
+    background: linear-gradient(to bottom, #6B8A8D, #009688);
+    color: #fff;
+    padding: 20px;
+}
+
+.card-item__side.-back {
+    background: #2C3E50;
+    color: #fff;
+    transform: rotateY(180deg);
+    padding: 20px;
+}
+
+.card-item__number {
+    font-size: 22px;
+    letter-spacing: 2px;
+}
+
+.card-item__holder {
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.card-item__date {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-input {
+    margin-bottom: 20px;
+}
+
+.card-input__label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.card-input__input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.card-form__row {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-form__col {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.card-form__col.-cvv {
+    margin-right: 0;
+}
+
+.card-input__input.-select {
+    appearance: none;
+}
+
+.card-form__button {
+    background: #009688;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s;
+}
+
+.card-form__button:hover {
+    background: #00796B;
+}
+
+/* Transitions */
+.slide-fade-up-enter-active, .slide-fade-up-leave-active {
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.slide-fade-up-enter, .slide-fade-up-leave-to {
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.slide-fade-right-enter-active, .slide-fade-right-leave-active {
+    transition: opacity 0.5s, transform 0.5s;
+}
+
+.slide-fade-right-enter, .slide-fade-right-leave-to {
+    opacity: 0;
+    transform: translateX(10px);
+}
+
+
+
+
+.github-btn {
+  position: absolute;
+  right: 40px;
+  bottom: 50px;
+  text-decoration: none;
+  padding: 15px 25px;
+  border-radius: 4px;
+  box-shadow: 0px 4px 30px -6px rgba(36, 52, 70, 0.65);
+  background: #24292e;
+  color: #fff;
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-size: 16px;
+  text-align: center;
+  transition: all .3s ease-in-out;
+
+  @media screen and (min-width: 500px) {
+    &:hover {
+      transform: scale(1.1);
+      box-shadow: 0px 17px 20px -6px rgba(36, 52, 70, 0.36);
+    }
+  }
+
+  @media screen and (max-width: 700px) {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    margin-top: 20px;
+
+    &:active {
+      transform: scale(1.1);
+      box-shadow: 0px 17px 20px -6px rgba(36, 52, 70, 0.36);
+    }
+  }
+}

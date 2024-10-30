@@ -1,0 +1,158 @@
+]<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Your Clothing Store Name</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=account_circle" />
+    <link rel="stylesheet" href="about.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+                    <header class="about-header">
+                        <div class="container navbar">
+                            <h1 class="logo"><img src="DIFFO.png" alt="Diffo Logo" height="60"></h1>
+                            <div class="nav-items">
+                                <nav>
+                                    <ul>
+                                        <li><a href="http://localhost/DIFFO/all.html">Home</a></li>
+                                        <li><a href="http://localhost/DIFFO/contact.html">contact</a></li>
+                                        <li><a href="about.html">About Us</a></li>
+                                        <li><a href="http://localhost/DIFFO/all.html">Shopping</a></li>
+                                    </ul>
+                                </nav>
+                                <li class="dropdown">
+                                    <a href="#" class="sign-in-link">
+                                        <span class="material-symbols-outlined">account_circle</span>
+                                        <style>
+                                            .material-symbols-outlined {
+                                                color: white;
+                                                font-variation-settings: 'FILL' 0, 'wght' 1400, 'GRAD' 0, 'opsz' 40;
+                                            }
+                                        </style>
+                                    </a>
+                                    <div class="dropdown-content">
+                                        <a href="singin.html" id="signup-link">Sign In</a>
+                                        <a href="singin.html" id="signin-link">Login</a>
+                                        <a href="#">My Orders</a>
+                                        <button id="logout" style="display: none;">Logout</button>
+                                    </div>
+                                </li>
+                                <a href="http://localhost/DIFFO/cart.html" id="cart-icon" class="cart-icon">
+                                    <span class="material-icons">shopping_cart</span>
+                                    <span id="cart-count">0</span>
+                                    <style>
+                                        #cart-count {
+                                            color: white;
+                                        }
+                                        .material-icons {
+                                            color: wheat;
+                                        }
+                                    </style>
+                                </a>
+                </header>
+        
+    <section class="mission-values">
+        <div class="section-content">
+            <div class="text-content">
+                <h2>Our vision</h2>
+                <p><strong>Our vision is to establish Diffo as the premier online destination for youth 
+                    clothing in Palestine. We aim to create a vibrant platform where young people 
+                    can find fashionable, affordable, and high-quality garments. By prioritizing user 
+                    experience and engaging with our audience through social media and digital 
+                    marketing, we hope to foster a community of style-conscious individuals.</strong>
+        </div>
+    </section>
+
+    <section class="meet-the-team">
+        <div class="section-content">
+            <div class="text-content">
+                <h2>Meet the Team</h2>
+                <div class="team-container">
+                    <div class="team-member">
+                        <img src="mohammed assi.jpg" alt="Mohammed assi">
+                        <h3>Mohammed assi</h3>
+                        <p>Co-Founder & CEO</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="hamza.jpg" alt="Hmaza betawi">
+                        <h3>Hmaza betawi</h3>
+                        <p>Chief Marketing Officer</p>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="what-we-offer">
+        <div class="section-content">
+            <img src="DIFFO.png" alt="What We Offer" class="section-image">
+            <div class="text-content">
+                <h2>What We Offer</h2>
+                <p>At Diffo online store , we specialize in a diverse range of clothing items, from casual wear to formal attire. Our collections are curated to reflect the latest fashion trends while ensuring comfort and quality.</p>
+            </div>
+        </div>
+    </section>
+
+   
+    <!-- FAQ Section -->
+    <section id="faq" class="faq-section">
+        <h2>Frequently Asked Questions (FAQ)</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <h3>1. What should I do if my order is canceled?</h3>
+                <p>If your order is canceled, please check your email for details. You can also contact our support team for further assistance.</p>
+            </div>
+            <div class="faq-item">
+                <h3>2. What is your return policy?</h3>
+                <p>We accept returns within 3 days of purchase. Items must be unworn and in their original packaging. Please visit our returns page for more information.</p>
+            </div>
+            <div class="faq-item">
+                <h3>3. How long does delivery take?</h3>
+                <p>Delivery usually takes 3-5 business days. You will receive a tracking number once your order has been shipped.</p>
+            </div>
+            <div class="faq-item">
+                <h3>4. I am having trouble signing in or signing up. What should I do?</h3>
+                <p>If you're having issues with signing in or signing up, please ensure that your credentials are correct. If problems persist, contact our support team for help.</p>
+            </div>
+            <div class="faq-item">
+                <h3>5. Who can I contact for further assistance?</h3>
+                <p>If you have any other questions or concerns, please reach out to our customer support team via the contact form or email us directly.</p>
+            </div>
+        </div>
+    </section>
+    <style>
+        input[type="text"],
+input[type="email"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 15px;
+  font-size: 1rem;
+}
+
+.contact-form button {
+  width: 100%;
+  padding: 15px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.contact-form button:hover {
+  background-color: #2980b9;
+  transform: scale(1.05);
+}
+
+
+    </style>
+</body>
+</html>
